@@ -32,6 +32,7 @@ import DeleteHistoryResource from "./pages/ResourceHub/resourcehub/DeleteHistory
 import ListResources from "./pages/ResourceHub/resourcehub/ListResources";
 
 // Dev Utilities Imports
+import FigletGenerator from "./pages/DevUtilities/devutilities/FigletGenerator";
 import Base64Url from "./pages/DevUtilities/devutilities/Base64Url";
 import BcryptGenerator from "./pages/DevUtilities/devutilities/BcryptGenerator";
 import BorderImageGenerator from "./pages/DevUtilities/devutilities/BorderImageGenerator";
@@ -43,6 +44,7 @@ import ColorConverter from "./pages/DevUtilities/devutilities/ColorConverter";
 import CronExpression from "./pages/DevUtilities/devutilities/CronExpression";
 import CssAnimationGenerator from "./pages/DevUtilities/devutilities/CssAnimationGenerator";
 import CssGlassmorphismPlayground from "./pages/DevUtilities/devutilities/CssGlassmorphismPlayground";
+import CssNeumorphismGenerator from "./pages/DevUtilities/devutilities/CssNeumorphismGenerator";
 import CssFilterPlayground from "./pages/DevUtilities/devutilities/CssFilterPlayground";
 import BoxShadowGenerator from "./pages/DevUtilities/devutilities/BoxShadowGenerator";
 
@@ -74,6 +76,7 @@ import PasswordGenerator from "./pages/DevUtilities/devutilities/PasswordGenerat
 import QrCodeGenerator from "./pages/DevUtilities/devutilities/QrCodeGenerator";
 import RegexTester from "./pages/DevUtilities/devutilities/RegexTester";
 import NanoIdGenerator from "./pages/DevUtilities/devutilities/NanoIdGenerator";
+import CssSelectorTester from "./pages/DevUtilities/devutilities/CssSelectorTester";
 import SemverCalculator from "./pages/DevUtilities/devutilities/SemverCalculator.jsx";
 import ShapeDividerGenerator from "./pages/DevUtilities/devutilities/ShapeDividerGenerator";
 import SqlFormatter from "./pages/DevUtilities/devutilities/SqlFormatter";
@@ -115,6 +118,7 @@ import PerformanceBudgetCalculator from "./pages/DevUtilities/devutilities/Perfo
 import CodeToImage from "./pages/DevUtilities/devutilities/CodeToImage";
 import HarAnalyzer from "./pages/DevUtilities/devutilities/HarAnalyzer";
 import SqlErdVisualizer from "./pages/DevUtilities/devutilities/SqlErdVisualizer";
+import HtmlCssMinifier from "./pages/DevUtilities/devutilities/HtmlCssMinifier";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -127,6 +131,8 @@ import { SidebarProvider } from "./context/SidebarContext";
 import { ThemeProvider, useTheme } from "./context/ThemeContext";
 import useKeyboardShortcuts from "./hooks/useKeyboardShortcuts";
 import "./index.css";
+
+import KeyboardInspector from "./pages/DevUtilities/devutilities/KeyboardInspector";
 
 function App() {
   const [hudVisible, setHudVisible] = useState(false);
@@ -327,11 +333,9 @@ function AppInner({ toggleHUD, hudVisible }) {
 
   return (
     <div
-      className={`w-full ${
-        showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
-      } transition-colors duration-300 ${
-        dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
-      }`}
+      className={`w-full ${showNavbar ? "h-screen overflow-hidden flex flex-col" : "min-h-screen"
+        } transition-colors duration-300 ${dark ? "bg-zinc-950 text-white" : "bg-[#FDFDFD] text-black"
+        }`}
     >
       <SplashScreen />
 
@@ -376,6 +380,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<YamlTomlConverter />}
               />
 
+              <Route path="/devutilities/keyboard-inspector"
+                element={<KeyboardInspector />}
+              />
+
               {/* Snippet Vault */}
               <Route path="/snippetvault" element={<SnippetVault />} />
               <Route path="/snippetvault/add" element={<AddSnippet />} />
@@ -411,6 +419,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               {/* Dev Utilities */}
               <Route path="/devutilities" element={<DevUtilities />} />
               <Route
+                path="/devutilities/figlet-generator"
+                element={<FigletGenerator />}
+              />
+              <Route
                 path="/devutilities/keycode-inspector"
                 element={<KeycodeInspector />}
               />
@@ -424,6 +436,10 @@ function AppInner({ toggleHUD, hudVisible }) {
               />
               <Route path="/devutilities/regex" element={<RegexTester />} />
               <Route path="/devutilities/nanoid" element={<NanoIdGenerator />} />
+	      <Route
+                    path="/devutilities/css-selector-tester"
+                    element={<CssSelectorTester />}
+              />
               <Route
                 path="/devutilities/css-unit-converter"
                 element={<CssUnitConverter />}
@@ -584,6 +600,10 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<FancyBorderRadiusGenerator />}
               />
               <Route
+                path="/devutilities/neumorphism"
+                element={<CssNeumorphismGenerator />}
+              />
+              <Route
                 path="/devutilities/glassmorphism"
                 element={<CssGlassmorphismPlayground />}
               />
@@ -735,8 +755,12 @@ function AppInner({ toggleHUD, hudVisible }) {
                 element={<SecurityHeaders />}
               />
               <Route
-                  path="/devutilities/css-cursor-playground"
-                  element={<CssCursorPlayground />}
+                path="/devutilities/css-cursor-playground"
+                element={<CssCursorPlayground />}
+              />
+              <Route
+                path="/devutilities/html-css-minifier"
+                element={<HtmlCssMinifier />}
               />
               <Route
                 path="/devutilities/code-to-image"
@@ -750,8 +774,9 @@ function AppInner({ toggleHUD, hudVisible }) {
                 path="/devutilities/sql-erd"
                 element={<SqlErdVisualizer />}
               />
-              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
+
+
           </div>
           {showNavbar && <Footer />}
         </div>
